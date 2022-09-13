@@ -1,0 +1,8 @@
+{
+    "ResourceProperties": {
+        "org_id": "o-a4tlobvmc0",
+        "assume_role": "AWSControlTowerExecution",
+        "audit_account": "413157014023",
+        "insight_arn_suffix": "21"
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "StartAt": "Get SH Members",
+    "States": {
+      "Get SH Members": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": "arn:aws:lambda:us-east-1:413157014023:function:GetSHMembers:$LATEST"
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "Next": "For Each Member",
+        "Comment": "Get SecurityHub members"
+      },
+      "For Each Member": {
+        "Type": "Map",
+        "End": true,
+        "Iterator": {
+          "StartAt": "Collect Summary Report",
+          "States": {
+            "Collect Summary Report": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload.$": "$",
+                "FunctionName": "arn:aws:lambda:us-east-1:413157014023:function:SHSummaryCollector:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 6,
+                  "BackoffRate": 2
+                }
+              ],
+              "Next": "Send Email",
+              "Comment": "Collect Security Hub Insight Summary data"
+            },
+            "Send Email": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload.$": "$",
+                "FunctionName": "arn:aws:lambda:us-east-1:413157014023:function:SHEmailNotify:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 6,
+                  "BackoffRate": 2
+                }
+              ],
+              "End": true,
+              "Comment": "Send Email with Summary Report"
+            }
+          }
+        },
+        "ItemsPath": "$",
+        "MaxConcurrency": 1,
+        "Comment": "Process each Member data"
+      }
+    },
+    "Comment": "Collect SecurityHub Summary Report for Account and notify by Email",
+    "TimeoutSeconds": 600
+  }

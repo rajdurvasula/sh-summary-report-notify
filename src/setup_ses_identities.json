@@ -1,0 +1,64 @@
+{
+    "Comment": "Add SES Identity for Security Hub Member Accounts",
+    "StartAt": "Get SH Members",
+    "States": {
+      "Get SH Members": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::lambda:invoke",
+        "OutputPath": "$.Payload",
+        "Parameters": {
+          "Payload.$": "$",
+          "FunctionName": "arn:aws:lambda:us-east-1:413157014023:function:GetSHMembers:$LATEST"
+        },
+        "Retry": [
+          {
+            "ErrorEquals": [
+              "Lambda.ServiceException",
+              "Lambda.AWSLambdaException",
+              "Lambda.SdkClientException"
+            ],
+            "IntervalSeconds": 2,
+            "MaxAttempts": 6,
+            "BackoffRate": 2
+          }
+        ],
+        "Next": "Each Member",
+        "Comment": "Get Security Hub enabled Member Accounts"
+      },
+      "Each Member": {
+        "Type": "Map",
+        "End": true,
+        "Iterator": {
+          "StartAt": "Add SES Identity",
+          "States": {
+            "Add SES Identity": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload.$": "$",
+                "FunctionName": "arn:aws:lambda:us-east-1:413157014023:function:AddSESIdentity:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 6,
+                  "BackoffRate": 2
+                }
+              ],
+              "End": true,
+              "Comment": "Check and Add SES Identity"
+            }
+          }
+        },
+        "ItemsPath": "$",
+        "MaxConcurrency": 1,
+        "Comment": "Execution for each Member Account"
+      }
+    }
+  }

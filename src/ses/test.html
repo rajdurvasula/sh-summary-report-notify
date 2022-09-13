@@ -1,0 +1,56 @@
+<table border=0 width=100%>
+    <tr>
+        <td bgcolor=#F2F1EE height=150 style=padding:20px width=55><a><img alt=Kyndryl
+                    src=https://s7d1.scene7.com/is/image/kyndryl/logo-header?qlt=85&wid=320&ts=1654196538994&$SVG-Transparency$&dpr=off
+                    width=150.6 height=48></a></td>
+        <td style=font-size:24px;font-family:TWK Everett;padding:20px>AWS Security audit notification</td>
+    </tr>
+</table>
+<p style=font-size:12px;font-family:Arial, Helvetica, sans-serif;padding:20px>Greetings !! <br><br>You are receiving
+    this email because you own the root user for the Kyndryl AWS member account
+    <b>{{member_account}}</b><br><br><b>Non-compliance findings by Category</b><br><br>
+<table border=1 width=70% style=font-size:12px;font-family:Arial, Helvetica, sans-serif>
+    <thead>
+        <tr>
+            <td><b>Category<b></td>
+            <td><b>Findings</b></td>
+        <tr>
+    </thead>
+    <tbody>{{#each SecurityHub}}<tr>
+            <td>{{GroupByAttributeValue}}</td>
+            <td>{{Count}}</td>
+        </tr>{{/each}}</tbody>
+</table><br><br><br><b>Non-compliance findings by Severity</b><br><br>
+<table border=1 width=70% style=font-size:12px;font-family:Arial, Helvetica, sans-serif>{{#each severity_count}}<tr>
+        <td>{{standard_type}}</td>
+    </tr>
+    <tr>
+        <td>
+            <table border=1 width=70% style=font-size:12px;font-family:Arial, Helvetica, sans-serif>
+                <tr>
+                    <td><b>Severity<b></td>
+                    <td><b>Findings</td></b>
+                </tr>{{#each result}}<tr>
+                    <td>{{GroupByAttributeValue}}</td>
+                    <td>{{Count}}</td>
+                </tr>{{/each}}
+            </table>
+        </td>
+    </tr>{{/each}}
+</table><br><br><b>Remediation instructions</b><br>
+<ul>
+    <li>To remediate these findings, login to your AWS Management Console with administrative privilege.</li>
+    <li>Navigate to <b>Security Hub > Security standards > View Results</b> for each Security standards.</li>
+    <li>Click on the <b>Title</b> of each item with <b>Status</b> as <b>Failed</b>. Click on <b>Remediation
+            instructions</b> and follow the steps.</li>
+</ul><br><br>Refer detailed remediation procedure listed below, <br>- AWS Foundational Security Best Practices: <a
+    href=https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html>https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html</a><br>-
+CIS Benchmark Standard: <a
+    href=https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cis-controls.html>https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cis-controls.html</a>
+<table border=0 width=100%>
+    <tr>
+        <td bgcolor=#FF462D fgcolor=#FFFFFF height=30 style=color: white; font-family: Arial, Helvetica,
+            sans-serif;font-size: 12px; padding:20px>This is a system generated email. Please contact <a
+                href=mailto:AWS-CCOE-TEAM@kyndryl.com>AWS-CCOE-TEAM@kyndryl.com</a> for any additional information.</td>
+    </tr>
+</table>

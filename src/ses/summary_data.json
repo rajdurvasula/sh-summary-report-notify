@@ -1,0 +1,69 @@
+{
+  "severity_count": [
+    {
+      "standard_type": "Software and Configuration Checks/Industry and Regulatory Standards/AWS-Foundational-Security-Best-Practices",
+      "result": [
+        {
+          "GroupByAttributeValue": "MEDIUM",
+          "Count": 2175
+        },
+        {
+          "GroupByAttributeValue": "LOW",
+          "Count": 807
+        },
+        {
+          "GroupByAttributeValue": "HIGH",
+          "Count": 208
+        },
+        {
+          "GroupByAttributeValue": "CRITICAL",
+          "Count": 84
+        }
+      ]
+    },
+    {
+      "standard_type": "Effects/Data Exposure/AWS-Foundational-Security-Best-Practices",
+      "result": [
+        {
+          "GroupByAttributeValue": "CRITICAL",
+          "Count": 5
+        }
+      ]
+    },
+    {
+      "standard_type": "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark",
+      "result": [
+        {
+          "GroupByAttributeValue": "MEDIUM",
+          "Count": 1685
+        },
+        {
+          "GroupByAttributeValue": "LOW",
+          "Count": 730
+        },
+        {
+          "GroupByAttributeValue": "HIGH",
+          "Count": 99
+        },
+        {
+          "GroupByAttributeValue": "CRITICAL",
+          "Count": 5
+        }
+      ]
+    }
+  ],
+  "Security Hub": [
+    {
+      "GroupByAttributeValue": "Software and Configuration Checks/Industry and Regulatory Standards/AWS-Foundational-Security-Best-Practices",
+      "Count": 3274
+    },
+    {
+      "GroupByAttributeValue": "Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark",
+      "Count": 2519
+    },
+    {
+      "GroupByAttributeValue": "Effects/Data Exposure/AWS-Foundational-Security-Best-Practices",
+      "Count": 5
+    }
+  ]
+}
